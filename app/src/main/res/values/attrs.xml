@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--圆形进度条自定义属性-->
+    <declare-styleable name="CircleProgressView">
+        <attr name="circle_progress" format="float"/>
+        <attr name="circle_max" format="float"/>
+
+        <attr name="circle_unfinished_color" format="color"/>
+        <attr name="circle_finished_color" format="color"/>
+
+        <attr name="circle_text_size" format="dimension"/>
+        <attr name="circle_text_color" format="color"/>
+
+        <attr name="circle_prefix_text" format="string"/>
+        <attr name="circle_suffix_text" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="Themes">
+        <attr name="circleProgressStyle" format="reference"/>
+    </declare-styleable>
+</resources>

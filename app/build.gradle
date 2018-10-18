@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+android {
+
+    /*def key_alias = ''
+    def key_alias_password = ''
+    def key_store_path = ''
+    def key_store_password = ''
+    // default keystore file, PLZ config file path in local.properties
+//    def keyfile = file('s.keystore.temp')
+    Properties properties = new Properties()
+
+    // local.properties file in the root director
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    key_store_path = properties.getProperty("key.store_path")
+
+    if (key_store_path) {
+        key_store_password = properties.getProperty("key.store_password")
+        key_alias = properties.getProperty("key.alias")
+        key_alias_password = properties.getProperty("key.alias_password")
+//        keyfile = file(keystoreFilepath)
+    }
+    signingConfigs {
+        config {
+            keyAlias key_alias
+            keyPassword key_alias_password
+            storeFile file(key_store_path)
+            storePassword key_store_password
+        }
+    }*/
+
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.seahung.handrollmachine"
+        minSdkVersion 18
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.1.15"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters  "armeabi-v7a"  // 指定要ndk需要兼容的架构(这样其他依赖包里mips,x86,armeabi,arm-v8之类的so会被过滤掉)
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.config
+        }
+        debug {
+//            signingConfig signingConfigs.config
+        }
+    }
+    sourceSets { main { jniLibs.srcDirs = ['libs'] } }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':sdk')
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation project(':camerakit')
+    implementation 'com.android.support:multidex:1.0.3'
+}

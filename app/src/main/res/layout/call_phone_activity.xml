@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_call_phone_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_remote_video"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_local_video"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/iv_hang_up"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintVertical_weight="3">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_hang_up"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/call_phone_hang_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_marked_words"
+        app:layout_constraintTop_toBottomOf="@id/ll_local_video"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        android:padding="32dp"
+        app:layout_constraintVertical_weight="1" />
+
+
+    <TextView
+        android:id="@+id/tv_marked_words"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_hang_up"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintLeft_toRightOf="@id/iv_hang_up"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center"
+        android:text="正在拨号，请稍后..."
+        android:textColor="@color/colorWhite"
+        android:textSize="40sp"
+        app:layout_constraintTop_toTopOf="@id/iv_hang_up" />
+
+
+</android.support.constraint.ConstraintLayout>

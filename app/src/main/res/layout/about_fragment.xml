@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:text="当前版本"
+            android:textColor="@color/color_737a82"
+            android:textSize="32dp" />
+
+        <TextView
+            android:id="@+id/tv_version_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv1"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv1"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:text="1.2.11"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv1"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_888" />
+
+        <TextView
+            android:id="@+id/tv_check_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_line"
+            android:padding="14dp"
+            android:text="检查更新"
+            android:textColor="@color/color_737a82"
+            android:textSize="32dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_check_update"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_check_update"
+            android:layout_marginRight="14dp"
+            android:src="@drawable/setting_item_right_arrow" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_check_update"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@color/color_888" />
+    </RelativeLayout>
+
+</LinearLayout>

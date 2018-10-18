@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="考勤方式"
+                android:textColor="@color/color_737a82"
+                android:textSize="40dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_attend_type_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="刷卡考勤"
+                android:textColor="@color/color_737a82"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_attend_type_face"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="人脸验证考勤"
+                android:textColor="@color/color_737a82"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_attend_type_card_face"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="刷卡+人脸验证考勤"
+                android:textColor="@color/color_737a82"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/color_888" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="置信度"
+                    android:textColor="@color/color_737a82"
+                    android:textSize="40dp" />
+
+                <TextView
+                    android:id="@+id/tv_face_semblance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:text="69.5%"
+                    android:textColor="@color/color_737a82"
+                    android:textSize="42dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <SeekBar
+                android:id="@+id/seek_bar_semblance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:max="1000"
+                android:maxHeight="24dp"
+                android:progress="0"
+                android:progressDrawable="@drawable/setting_seek_bar_progress_bg"
+                android:splitTrack="false"
+                android:thumb="@drawable/setting_seek_bar_thumb" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/color_888" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

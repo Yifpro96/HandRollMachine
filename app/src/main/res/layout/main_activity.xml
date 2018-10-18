@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_main_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_092033">
+
+    <TextView
+        android:id="@+id/tv_date_time"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2018-07-17 09:49 星期二"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/camera_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintVertical_weight="1" />
+
+    <ImageView
+        android:id="@+id/iv_to_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/main_btn_setting"
+        app:layout_constraintBottom_toBottomOf="@id/tv_date_time"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_date_time" />
+
+
+    <com.flurgle.camerakit.CameraView
+        android:id="@+id/camera_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:ckCropOutput="false"
+        app:ckFacing="back"
+        app:ckFocus="continuous"
+        app:ckJpegQuality="100"
+        app:ckMethod="standard"
+        app:ckPermissions="picture"
+        app:ckZoom="off"
+        app:layout_constraintBottom_toTopOf="@+id/iv_user_face"
+        app:layout_constraintTop_toBottomOf="@id/tv_date_time"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintVertical_weight="7.5">
+
+    </com.flurgle.camerakit.CameraView>
+
+    <ImageView
+        android:id="@+id/iv_updown_car_bg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/main_updown_car_bg"
+        app:layout_constraintBottom_toBottomOf="@id/camera_view"
+        app:layout_constraintTop_toTopOf="@id/camera_view" />
+
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/camera_view"
+        app:layout_constraintTop_toTopOf="@id/camera_view">
+
+    </WebView>
+
+    <RelativeLayout
+        android:id="@+id/rl_direction_updown"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/camera_view"
+        app:layout_constraintTop_toTopOf="@id/camera_view">
+
+        <TextView
+            android:id="@+id/tv_direction_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/color_0faadf"
+            android:gravity="center"
+            android:padding="24dp"
+            android:text="@string/direction_up"
+            android:textColor="@color/colorWhite"
+            android:textSize="24dp" />
+
+
+        <TextView
+            android:id="@+id/tv_direction_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_direction_up"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/color_ffae00"
+            android:gravity="center"
+            android:padding="24dp"
+            android:text="@string/direction_down"
+            android:textColor="@color/colorWhite"
+            android:textSize="24dp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_user_face"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="12dp"
+        android:src="@drawable/default_user_face"
+        app:layout_constraintBottom_toTopOf="@+id/rl_count"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@id/camera_view"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintVertical_weight="2.5" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/iv_user_face"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_user_face"
+        app:layout_constraintTop_toTopOf="@id/iv_user_face">
+
+        <TextView
+            android:id="@+id/tv_marked_words"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="— 请刷卡 —"
+            android:textColor="@color/colorWhite"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_card_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_user_name"
+            android:text="卡号"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_class_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_card_id"
+            android:text="班级"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_user_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_class_name"
+            android:layout_alignTop="@id/tv_class_name"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/tv_class_name"
+            android:text="学号"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_swipe_face_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_class_name"
+            android:text="刷卡信息"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/iv_success_words"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_user_name"
+            android:layout_alignTop="@id/tv_user_name"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/tv_user_name"
+            android:src="@drawable/main_swipe_card_success" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_count"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_user_face">
+
+        <TextView
+            android:id="@+id/tv_people_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/color_eee" />
+
+        <TextView
+            android:id="@+id/tv_swipe_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/tv_people_count"
+            android:textColor="@color/color_eee" />
+
+        <com.seahung.handrollmachine.widget.LampProgressBar
+            android:id="@+id/lamp_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/tv_swipe_count" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

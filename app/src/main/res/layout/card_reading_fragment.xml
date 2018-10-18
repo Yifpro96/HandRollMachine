@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="串口号配置"
+                android:textColor="@color/colorWhite"
+                android:textSize="40dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_serial_port_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="串口1（ttyS1）"
+                android:textColor="@color/colorWhite"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_serial_port_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="串口2（ttyS2）"
+                android:textColor="@color/colorWhite"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_serial_port_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="串口3（ttyS3）"
+                android:textColor="@color/colorWhite"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_serial_port_four"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="串口4（ttyS4）"
+                android:textColor="@color/colorWhite"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/color_888" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="波特率配置"
+                android:textColor="@color/colorWhite"
+                android:textSize="40dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_baud_rate_2400"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="2400"
+                android:textColor="@color/colorWhite"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_baud_rate_4800"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="4800"
+                android:textColor="@color/colorWhite"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_baud_rate_9600"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="9600"
+                android:textColor="@color/colorWhite"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@color/color_888" />
+
+            <TextView
+                android:id="@+id/tv_baud_rate_19200"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:drawableRight="@drawable/setting_checkbox_select"
+                android:padding="14dp"
+                android:paddingBottom="14dp"
+                android:text="19200"
+                android:textColor="@color/colorWhite"
+                android:textSize="38dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/color_888" />
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorWhite">#FFFFFFFF</color>
+    <color name="colorBlack">#FF000000</color>
+    <color name="color_aa0000">#FFAA0000</color>
+    <color name="color_00aa00">#FF00AA00</color>
+    <color name="color_0faadf">#0faadf</color>
+    <color name="color_ffae00">#ffae00</color>
+
+    <color name="color_88_888">#88888888</color>
+    <color name="color_888">#FF888888</color>
+    <color name="color_aaa">#FFAAAAAA</color>
+    <color name="color_eee">#FFEEEEEE</color>
+
+    <color name="color_666">#FF666666</color>
+    <color name="color_66_666">#66666666</color>
+
+    <!--PasswordActivity-->
+    <color name="color_41454e">#FF41454E</color>
+    <color name="color_077fa9">#FF077FA9</color>
+    <color name="color_076687">#FF076687</color>
+    <color name="color_515253">#FF515253</color>
+    <color name="color_454545">#FF454545</color>
+    <color name="color_76787f">#FF76787F</color>
+    <color name="color_bec1c5">#FFBEC1C5</color>
+
+    <!--SettingActivity-->
+    <color name="color_4f73a7">#FF4F73A7</color>
+    <color name="color_66_fff">#66FFFFFF</color>
+    <color name="color_2287fe">#FF2287FE</color>
+    <color name="color_ff9a33">#FFFF9A33</color>
+    <color name="color_737a82">#FF737A82</color>
+    <color name="color_092033">#FF092033</color>
+
+</resources>

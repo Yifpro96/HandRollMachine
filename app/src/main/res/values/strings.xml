@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">校车考勤</string>
+    <!--&lt;!&ndash;云粉&ndash;&gt;-->
+    <!--<string name="from_system">EMARK_ROLLM_800</string>-->
+
+    <!--手持考勤机-->
+    <string name="from_system">EMARK_ROLLM_600</string>
+
+    <!--点睿-->
+    <!--<string name="from_system">EMARK_ROLLM_500</string>-->
+
+    <string name="network_status_checking">正在检测网络...</string>
+    <string name="network_connection_success">网络连接成功</string>
+    <string name="network_connection_failure">当前网络无法上网</string>
+    <string name="network_connection_exception">无法连接服务器</string>
+
+    <!--LauncherActivity-->
+    <string name="launcher_download_app_new_version">下载新版本</string>
+
+    <!--PasswordActivity-->
+    <string name="password_input_complete_password">请输入完整的密码</string>
+    <string name="password_login_success">登录成功</string>
+    <string name="password_login_failure">登录失败</string>
+    <string name="password_logining">检验密码中...</string>
+    <string name="password_input_password_wrong">密码错误，请重新输入</string>
+
+    <!--SettingActivity-->
+    <string name="setting_school_id">学校id</string>
+    <string name="setting_class_id">班级id</string>
+    <string name="setting_terminal_id">终端id</string>
+    <string name="setting_card_reading">读卡串口</string>
+    <string name="setting_platform_id">平台id</string>
+    <string name="setting_attend_type">考勤方式</string>
+    <string name="setting_camera_type">拍照模式</string>
+    <string name="setting_gps_location">实时定位</string>
+    <string name="setting_change_skin">皮肤切换</string>
+    <string name="setting_inout_school">出入门</string>
+    <string name="setting_teacher_student">教师/学生</string>
+    <string name="setting_sync_data">数据同步</string>
+    <string name="setting_play_voice">语音播报</string>
+    <string name="setting_announce_board">公告栏</string>
+    <string name="setting_check_update">关于</string>
+    <string name="seting_upload_log">上传日志</string>
+
+    <!--TerminalIdFragment-->
+    <string name="input_terminal_id">请输入终端id</string>
+    <string name="terminal_id_length_limited">终端id的长度为15位</string>
+
+    <!--PlatformIdFragment-->
+    <string name="input_platform_id">请输入平台id</string>
+
+    <!--ChangeSkinFragment-->
+    <string name="skin_dark_gray">经典灰</string>
+    <string name="skin_grayish_blue">浅灰蓝</string>
+    <string name="skin_sky_blue">天空蓝</string>
+    <string name="skin_green">草木绿</string>
+    <string name="skin_orange">活泼橙</string>
+    <string name="skin_red">西瓜红</string>
+    <string name="skin_aqua">珊瑚蓝</string>
+    <string name="skin_wathet_blue">青春蓝</string>
+
+    <!--SyncDataFragment-->
+    <string name="sync_data">同步数据</string>
+    <string name="resync_data">重新同步</string>
+    <string name="resync_data_desc">清除原有用户数据，一般用于新装设备、大量数据变动等！</string>
+    <string name="incremental_sync_data">增量同步</string>
+    <string name="incremental_sync_data_desc">在原有的用户数据上，调整、更新数据，一般用于少量数据变动！</string>
+    <string name="clear_data">清除数据</string>
+    <string name="clear_attendance_data">清除刷脸数据</string>
+    <string name="clear_attendance_data_desc">清除刷脸记录和刷脸时抓拍的照片</string>
+    <string name="clear_all_data">清除用户数据</string>
+    <string name="clear_all_data_desc">清除刷脸数据，清除用户本地数据和头像文件</string>
+
+
+    <string name="direction_up">上\t车</string>
+    <string name="direction_down">下\t车</string>
+</resources>
