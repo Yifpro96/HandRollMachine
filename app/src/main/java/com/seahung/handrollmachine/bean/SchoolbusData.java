@@ -19,17 +19,17 @@ public class SchoolbusData {
      * all_seat_distr_status  : [{"seat_number":"01","seat_status":"0","user_name":"马云","user_photo_url":"http://xxx/xxx.jpg","updown_place_uid":"aaa-bbb","updown_place_address":"天河体育中心","updown_place_address_short":"天河体育中心","updown_place_latitude":"23.232431","updown_place_longitude":"133.4646546"}]
      */
 
-    private int seat_count;
+    private String seat_count;
     private int on_car_stu_count;
-    private int seat_row;
-    private int seat_column;
+    private String seat_row;
+    private String seat_column;
     private List<SeatData> allSeatDistrStatus;
 
-    public int getSeat_count() {
+    public String getSeat_count() {
         return seat_count;
     }
 
-    public void setSeat_count(int seat_count) {
+    public void setSeat_count(String seat_count) {
         this.seat_count = seat_count;
     }
 
@@ -41,19 +41,19 @@ public class SchoolbusData {
         this.on_car_stu_count = on_car_stu_count;
     }
 
-    public int getSeat_row() {
+    public String getSeat_row() {
         return seat_row;
     }
 
-    public void setSeat_row(int seat_row) {
+    public void setSeat_row(String seat_row) {
         this.seat_row = seat_row;
     }
 
-    public int getSeat_column() {
+    public String getSeat_column() {
         return seat_column;
     }
 
-    public void setSeat_column(int seat_column) {
+    public void setSeat_column(String seat_column) {
         this.seat_column = seat_column;
     }
 

@@ -296,4 +296,27 @@ public class RealmHelper {
         return swipeCard;
     }
 
+    /**
+     * 查找当前卡号数据
+     *
+     * @param realm
+     * @param cardId
+     * @return
+     */
+    public static SwipeCard getSwipCardById(Realm realm, String cardId) {
+        SwipeCard card = realm.where(SwipeCard.class).equalTo("card_id", cardId).findFirst();
+        return card;
+    }
+
+    /**
+     * 查找当前上车的总人数
+     *
+     * @param realm
+     * @return
+     */
+    public static int  getSwipCardUpCount(Realm realm) {
+        int count= (int) realm.where(SwipeCard.class).equalTo("updown_direction", "up").distinct("card_id").count();
+        return count;
+    }
+
 }

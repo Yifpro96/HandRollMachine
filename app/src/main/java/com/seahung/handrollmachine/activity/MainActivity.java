@@ -14,6 +14,7 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -27,6 +28,7 @@ import com.flurgle.camerakit.CameraListener;
 import com.flurgle.camerakit.CameraProperties;
 import com.flurgle.camerakit.CameraView;
 import com.flurgle.camerakit.Size;
+import com.google.gson.Gson;
 import com.seahung.handrollmachine.R;
 import com.seahung.handrollmachine.bean.GpsInfo;
 import com.seahung.handrollmachine.bean.SchoolbusData;
@@ -51,6 +53,7 @@ import com.unengchan.sdk.base.BaseHandler;
 import com.unengchan.sdk.manager.AppManager;
 import com.unengchan.sdk.util.AppUtils;
 import com.unengchan.sdk.util.LogUtils;
+import com.unengchan.sdk.util.SPUtils;
 import com.unengchan.sdk.util.ToastUtils;
 import com.unengchan.sdk.util.ViewUtils;
 
@@ -164,6 +167,10 @@ public class MainActivity extends BaseActivity
     public String mPhotoMode;
     public boolean isAutoHide;
     public SchoolbusData mSchoolbusData;
+    private Gson mGson;
+    private String TAG = MainActivity.class.getSimpleName();
+    private ArrayList<SchoolbusData.SeatData> seatDatas;
+    private SchoolbusData schoolbusData;
     //    public boolean isSetting = true;
 
 
@@ -179,6 +186,8 @@ public class MainActivity extends BaseActivity
         // 线程池
         mThreadPool = AppUtils.getThreadPool();
         mHandler = new MainHandler(this);
+
+        mGson = new Gson();
 
         // 刷新时间
         mRefreshTimeRunnable = new RefreshTimeRunnable(tvDateTime);
@@ -197,6 +206,7 @@ public class MainActivity extends BaseActivity
         initGpsInfo();
         // 初始化NFC读卡
         initNFC();
+
 
         // 加载网页
         initWebView();
@@ -272,21 +282,76 @@ public class MainActivity extends BaseActivity
         webView.loadUrl("http://192.168.0.21:8001/school_bus_attendance/index.html");
 
 
+        //发送数据到H5
 
-        //调用
-        String method = "H5PageDataIniShow";
-        String param = "";
-
-        webView.loadUrl(generateMethodStr(method, param));
-
-
-
-        // 初始化数据
-        mSchoolbusData = new SchoolbusData();
-        SchoolbusData.SeatData seatData = new SchoolbusData.SeatData();
+        sendData2H5();
 
     }
 
+    /**
+     * 发送数据到h5
+     */
+    private void sendData2H5() {
+
+        seatDatas = new ArrayList<>();
+        schoolbusData = new SchoolbusData();
+
+        String seatCount = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_COUNT, "0");
+        String seatRow = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_ROW, "0");
+        String seatCloumn = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_COLUMN, "0");
+
+        schoolbusData.setSeat_count(seatCount);
+        schoolbusData.setSeat_row(seatRow);
+        schoolbusData.setSeat_column(seatCloumn);
+
+        Log.i("TAG", seatCount + " - " + seatRow + " - " + seatCloumn);
+
+        int swipCardUpCount = RealmHelper.getSwipCardUpCount(mSwipeCardInfoRealm);
+        schoolbusData.setOn_car_stu_count(swipCardUpCount);
+
+
+        List<User> users = RealmHelper.getAllUsersList(mUserRealm);
+
+        for (User user : users) {
+
+            SchoolbusData.SeatData seatData = new SchoolbusData.SeatData();
+
+            seatData.setSeat_number(user.getSeat_number());
+
+               SwipeCard swipeCard = RealmHelper.getSwipCardById(mSwipeCardInfoRealm, user.getCardId());
+               if (swipeCard != null && swipeCard.getUpdownDirection().equals("up")) {
+                   seatData.setSeat_status("0");
+               } else {
+                   seatData.setSeat_status("1");
+               }
+
+            seatData.setUser_name(user.getName());
+            seatData.setUser_photo_url(user.getPhotoUrl());
+            seatData.setUpdown_place_uid(user.getUpdown_place_uid());
+            seatData.setUpdown_place_address(user.getUpdown_place_address());
+            seatData.setUpdown_place_address_short(user.getUpdown_place_address_short());
+            seatData.setUpdown_place_latitude(user.getUpdown_place_latitude());
+            seatData.setUpdown_place_longitude(user.getUpdown_place_longitude());
+
+            seatDatas.add(seatData);
+
+            schoolbusData.setAllSeatDistrStatus(seatDatas);
+        }
+
+        String method = "H5PageDataIniShow";
+        String param = mGson.toJson(schoolbusData);
+        Log.i(TAG, param);
+
+        webView.loadUrl(generateMethodStr(method, param));
+    }
+
+    /**
+     * 生成h5调用url
+     *
+     * @param method
+     * @param param
+     * @return
+     */
     private String generateMethodStr(String method, String param) {
         return String.format("javascript:%s(\"%s\")", method, param);
     }
@@ -325,7 +390,6 @@ public class MainActivity extends BaseActivity
         // 刷卡人数
         mPeopleCount = RealmHelper.getPeopleCountByCardId(mSwipeCardInfoRealm);
         tvPeopleCount.setText(mPeopleCount + " 人");
-
         // 未上传的人数
         mNotUploadCount = RealmHelper.getNotUploadCount(mSwipeCardInfoRealm);
         lampProgressBar.setSize(mNotUploadCount + mGpsInfos.size());
@@ -757,10 +821,13 @@ public class MainActivity extends BaseActivity
 
                     // 添加数据
                     RealmHelper.addSwipeCardData(acivity.mSwipeCardInfoRealm, swipeCard);
+
+                    acivity.sendData2H5();
                     break;
 
             }
         }
+
 
         /**
          * 界面的显示

@@ -33,6 +33,12 @@ public class UploadLocationRunnable implements Runnable {
         mListener = listener;
     }
 
+    /**
+     * 定时刷新h5页面回调
+     */
+    public interface IntervalRefreshH5Listener{
+        void onIntervalRefreshH5();
+    }
     public void setGpsInfos(List<GpsInfo> gpsInfos) {
         mGpsInfos = gpsInfos;
     }

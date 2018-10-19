@@ -102,4 +102,11 @@ public class ConfigConstant {
     public static final int LOCATION_TIME_INTERVAL_THIRTY_SECOND = 30000;
     public static final int LOCATION_TIME_INTERVAL_ONE_MINUTE = 60000;
     public static final int LOCATION_TIME_INTERVAL_FIVE_MINUTE = 300000;
+
+    //校车信息
+    public static final String KEY_SEAT_COUNT = "seat_count";//座位数
+    public static final String KEY_SEAT_ROW = "seat_row";//座位行数
+    public static final String KEY_SEAT_COLUMN = "seat_column";//座位列数
+    public static final String KEY_SEAT_ALL_NUMBER = "seat_all_number";//座位编号
+    public static final String KEY_SEAT_DISTR_DIAGRAM = "seat_distr_diagram";//作为分布图
 }

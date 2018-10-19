@@ -1,6 +1,9 @@
 package com.seahung.handrollmachine.runnable;
 
+import android.util.Log;
+
 import com.seahung.handrollmachine.bean.database.User;
+import com.seahung.handrollmachine.constant.ConfigConstant;
 import com.seahung.handrollmachine.constant.FileConstant;
 import com.seahung.handrollmachine.helper.AsyncTaskHelper;
 import com.seahung.handrollmachine.helper.CsvHelper;
@@ -12,6 +15,7 @@ import com.seahung.handrollmachine.util.HttpUtils;
 import com.seahung.handrollmachine.util.XmlHandlerUtils;
 import com.seahung.handrollmachine.widget.CircleProgressView;
 import com.unengchan.sdk.util.LogUtils;
+import com.unengchan.sdk.util.SPUtils;
 import com.unengchan.sdk.util.StringUtils;
 
 import java.io.File;
@@ -80,6 +84,10 @@ public class SyncUserDataRunnable implements Runnable {
             return;
         }
         SyncUserDataResponse response = XmlHandlerUtils.getSyncUserDataResponse(xmlResponse);
+
+
+
+
         String filePath = HttpUtils.doGet(response.getUser_csv_url(), FileConstant.USER_ROSTER_FILE_PATH);
         if (cancel || StringUtils.isEmpty(filePath)) {
             //获取数据失败 或者 取消同步
@@ -88,6 +96,17 @@ public class SyncUserDataRunnable implements Runnable {
             }
             return;
         }
+        //保存校车信息
+
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_COUNT,response.getSeat_count());
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_ROW,response.getSeat_row());
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_COLUMN,response.getSeat_column());
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_ALL_NUMBER,response.getSeat_all_number());
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_DISTR_DIAGRAM,response.getSeat_distr_diagram());
+
+
+        Log.i("TAG 1", response.getSeat_count() + " - " + response.getSeat_row() + " - " + response.getSeat_column());
+
         // TODO: 2018/10/17 保存学生信息
         List<User> users = CsvHelper.getUserData(filePath);
         if (users == null || users.size() == 0) {
@@ -113,6 +132,7 @@ public class SyncUserDataRunnable implements Runnable {
                     break;
                 }
                 User user = users.get(i);
+                Log.i("TAG",user.getName());
                 String accountUid = user.getAccountUid();
                 String photoUrl = user.getPhotoUrl();
                 String userPhotoPath = user.getPhotoPath();

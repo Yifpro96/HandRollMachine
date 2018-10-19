@@ -32,7 +32,7 @@ public class GlobalApplication extends BaseApplication {
 //        LicenseSDK.init(getAssets(),"license");
 
         // 崩溃日志记录和重启应用
-        CrashHandler.getInstance().init(mAppContext);
+//        CrashHandler.getInstance().init(mAppContext);
 
         // 初始化语音引擎，需要安装讯飞语音合成
         VoiceHelper.init();
