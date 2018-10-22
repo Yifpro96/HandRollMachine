@@ -1,6 +1,7 @@
 package com.seahung.handrollmachine.runnable;
 
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.seahung.handrollmachine.bean.GpsInfo;
 import com.seahung.handrollmachine.manager.ConfigManager;
@@ -23,21 +24,18 @@ public class UploadLocationRunnable implements Runnable {
     private List<GpsInfo> mGpsInfos;
     private long delaySeconds = 5;
     private UploadLocationListener mListener;
+    private String TAG="*********-"+UploadLocationRunnable.class.getSimpleName()+"-************* ";
+
 
     public interface UploadLocationListener {
         // 当errorcode不为0的时候，errorstring 有效
         void onUploadResult(int errorCode, String errorString);
     }
 
+
+
     public UploadLocationRunnable(UploadLocationListener listener) {
         mListener = listener;
-    }
-
-    /**
-     * 定时刷新h5页面回调
-     */
-    public interface IntervalRefreshH5Listener{
-        void onIntervalRefreshH5();
     }
     public void setGpsInfos(List<GpsInfo> gpsInfos) {
         mGpsInfos = gpsInfos;
@@ -52,6 +50,7 @@ public class UploadLocationRunnable implements Runnable {
                 SystemClock.sleep(delaySeconds * 1000);
                 continue;
             }
+
             GpsInfo gpsInfo = mGpsInfos.get(0);
             ConfigManager configManager = ConfigManager.getInstance();
             UploadLocationRequest request = new UploadLocationRequest();
@@ -67,6 +66,9 @@ public class UploadLocationRunnable implements Runnable {
             request.setBearing(gpsInfo.getDirection());
             request.setAddress(gpsInfo.getAddress());
             request.setGpsTime(gpsInfo.getGpsTime());
+
+
+
 
             String serviceUrl = HttpUtils.getServiceUrl(request.getTrans_code(), request.getAction());
             if (StringUtils.isEmpty(serviceUrl)) {

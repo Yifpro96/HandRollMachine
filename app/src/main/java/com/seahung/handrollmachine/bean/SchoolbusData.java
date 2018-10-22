@@ -17,6 +17,8 @@ public class SchoolbusData {
      * seat_row : 10
      * seat_column : 3
      * all_seat_distr_status  : [{"seat_number":"01","seat_status":"0","user_name":"马云","user_photo_url":"http://xxx/xxx.jpg","updown_place_uid":"aaa-bbb","updown_place_address":"天河体育中心","updown_place_address_short":"天河体育中心","updown_place_latitude":"23.232431","updown_place_longitude":"133.4646546"}]
+     * downCount : 1
+     * upCount ：1
      */
 
     private String seat_count;
@@ -24,6 +26,13 @@ public class SchoolbusData {
     private String seat_row;
     private String seat_column;
     private List<SeatData> allSeatDistrStatus;
+
+    private int downCount;
+    private int upCount;
+
+    private String current_addrese;
+    private Double current_latitude;
+    private Double current_longitude;
 
     public String getSeat_count() {
         return seat_count;
@@ -59,6 +68,22 @@ public class SchoolbusData {
 
     public List<SeatData> getAllSeatDistrStatus() {
         return allSeatDistrStatus;
+    }
+
+    public int getDownCount() {
+        return downCount;
+    }
+
+    public void setDownCount(int downCount) {
+        this.downCount = downCount;
+    }
+
+    public int getUpCount() {
+        return upCount;
+    }
+
+    public void setUpCount(int upCount) {
+        this.upCount = upCount;
     }
 
     public void setAllSeatDistrStatus(List<SeatData> allSeatDistrStatus) {
@@ -159,5 +184,29 @@ public class SchoolbusData {
         public void setUpdown_place_longitude(String updown_place_longitude) {
             this.updown_place_longitude = updown_place_longitude;
         }
+    }
+
+    public String getCurrent_addrese() {
+        return current_addrese;
+    }
+
+    public void setCurrent_addrese(String current_addrese) {
+        this.current_addrese = current_addrese;
+    }
+
+    public Double getCurrent_latitude() {
+        return current_latitude;
+    }
+
+    public void setCurrent_latitude(Double current_latitude) {
+        this.current_latitude = current_latitude;
+    }
+
+    public Double getCurrent_longitude() {
+        return current_longitude;
+    }
+
+    public void setCurrent_longitude(Double current_longitude) {
+        this.current_longitude = current_longitude;
     }
 }

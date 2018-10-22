@@ -56,6 +56,7 @@ public class LocationUtils {
 
     /**
      * 启动定位
+     *
      * @param locationListener
      */
     public static void startLocation(AMapLocationListener locationListener) {
@@ -67,9 +68,10 @@ public class LocationUtils {
 
     /**
      * 设置定位间隔
+     *
      * @param time
      */
-    public static void setLocationInterval(int time){
+    public static void setLocationInterval(int time) {
         locationInterval = time;
     }
 
@@ -83,5 +85,38 @@ public class LocationUtils {
             mLocationClient = null;
             mLocationOption = null;
         }
+    }
+
+
+    private static final double EARTH_RADIUS = 6378.137;//地球半径
+
+    /**
+     *  计算两个经纬度的距离
+     * @param currentLatitude  当前纬度
+     * @param currentLongitude 当前经度
+     * @param upDownLatitude   上下车纬度
+     * @param upDownLongitude  上下车经度
+     * @return   返回值单位 -- 千米
+     */
+    public static double calcDistance(double currentLatitude, double currentLongitude, double upDownLatitude, double upDownLongitude) {
+
+        double currentlatiRad = rad(currentLatitude);
+        double upDownLatiRad = rad(upDownLatitude);
+
+        double latiDis = currentlatiRad - upDownLatiRad;
+        double longiDis = rad(currentLongitude) - rad(upDownLongitude);
+
+        double distance = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(latiDis / 2), 2)))
+                + Math.cos(currentlatiRad) * Math.cos(upDownLatiRad)
+                * Math.pow(Math.sin(longiDis / 2), 2);
+
+        distance = distance * EARTH_RADIUS;
+        distance = Math.round(distance * 10000d) / 10000d;
+//        distance = distance * 1000;
+        return distance;
+    }
+
+    private static double rad(double value) {
+        return value * Math.PI / 180.0;
     }
 }

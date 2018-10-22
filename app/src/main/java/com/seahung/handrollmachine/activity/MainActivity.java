@@ -13,14 +13,20 @@ import android.nfc.NfcManager;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -31,6 +37,7 @@ import com.flurgle.camerakit.Size;
 import com.google.gson.Gson;
 import com.seahung.handrollmachine.R;
 import com.seahung.handrollmachine.bean.GpsInfo;
+import com.seahung.handrollmachine.bean.SchoolBusRefreshData;
 import com.seahung.handrollmachine.bean.SchoolbusData;
 import com.seahung.handrollmachine.bean.database.SwipeCard;
 import com.seahung.handrollmachine.bean.database.User;
@@ -58,7 +65,10 @@ import com.unengchan.sdk.util.ToastUtils;
 import com.unengchan.sdk.util.ViewUtils;
 
 import java.io.File;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
@@ -123,6 +133,7 @@ public class MainActivity extends BaseActivity
     public static final int ADD_SWIPE_DATA = 2;
     public static final int CLOSE_RELAY = 3;
     public static final int HIDE_UPDOWN_DIRECTION = 4;
+    public static final int REFRESH_H5 = 5;//刷新H5
 
     public ExecutorService mThreadPool;
     public RefreshTimeRunnable mRefreshTimeRunnable;
@@ -168,10 +179,9 @@ public class MainActivity extends BaseActivity
     public boolean isAutoHide;
     public SchoolbusData mSchoolbusData;
     private Gson mGson;
-    private String TAG = MainActivity.class.getSimpleName();
-    private ArrayList<SchoolbusData.SeatData> seatDatas;
-    private SchoolbusData schoolbusData;
+
     //    public boolean isSetting = true;
+    private String TAG = "*********-" + MainActivity.class.getSimpleName() + "-************* ";
 
 
     @Override
@@ -182,6 +192,9 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initData() {
         super.initData();
+
+        Date date = new Date();
+        Log.i(TAG, date.toString());
         mConfigManager = ConfigManager.getInstance();
         // 线程池
         mThreadPool = AppUtils.getThreadPool();
@@ -239,6 +252,12 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+  /*     findViewById(R.id.btn_click).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendData2H5();
+            }
+        });*/
         isAutoHide = true;
         rlDirectionUpdown.setVisibility(View.GONE);
 
@@ -270,16 +289,31 @@ public class MainActivity extends BaseActivity
     /**
      * 初始化网页
      */
-    @SuppressLint("SetJavaScriptEnabled")
+
     private void initWebView() {
 
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        webView.setVerticalScrollbarOverlay(true);
+        WebSettings settings = webView.getSettings();
 
-        webView.loadUrl("http://192.168.0.21:8001/school_bus_attendance/index.html");
+    /*    settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webView.setVerticalScrollBarEnabled(false);*/
+        settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+
+//        webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "调用H5 function " + message);
+                return true;
+            }
+        });
+        webView.loadUrl("file:///android_asset/school_bus_attendance/index.html");
+
+
+//        webView.loadUrl("http://192.168.0.21:8001/school_bus_attendance/index.html");
 
 
         //发送数据到H5
@@ -293,16 +327,113 @@ public class MainActivity extends BaseActivity
      */
     private void sendData2H5() {
 
-        seatDatas = new ArrayList<>();
-        schoolbusData = new SchoolbusData();
+        Log.i(TAG, "sendData2H5");
+        ArrayList<SchoolbusData.SeatData> seatDatas = new ArrayList<>();
+        SchoolbusData schoolbusData = new SchoolbusData();
 
-        String seatCount = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_COUNT, "0");
-        String seatRow = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_ROW, "0");
-        String seatCloumn = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_COLUMN, "0");
+
+        generateSwipeCardData(schoolbusData, seatDatas);
+
+        String param = mGson.toJson(schoolbusData);
+        String loadUrl = generateMethodStr(param);
+        Log.i(TAG, loadUrl);
+
+        webView.loadUrl(loadUrl);
+    }
+
+    /**
+     * 刷新h5页面数据
+     */
+    private void refreshH5Data() {
+
+        ArrayList<SchoolbusData.SeatData> seatDatas = new ArrayList<>();
+
+        SchoolbusData schoolbusData = new SchoolbusData();
+        int preDownCount = 0;//即将下车人数
+        int notOnTheBus = 0;//下车人数
+
+//        ArrayList<SchoolBusRefreshData.AllSeatIdStatusBean> allSeatIdStatusBeans = new ArrayList<>();
+//        SchoolBusRefreshData schoolBusRefreshData = new SchoolBusRefreshData();
+//        schoolBusRefreshData.setCurrent_addrese(mAddress);
+//        schoolBusRefreshData.setCurrent_latitude(mLatitude);
+//        schoolBusRefreshData.setCurrent_longitude(mLongitude);
+
+        List<User> users = RealmHelper.getAllUsersList(mUserRealm);
+
+        for (User user : users) {
+
+            SwipeCard swipeCard = RealmHelper.getSwipCardById(mUserRealm, user.getCardId());
+            SchoolbusData.SeatData statusBean = new SchoolbusData.SeatData();
+
+
+            //计算两个经纬度距离
+            double upDownLatitude = Double.parseDouble(user.getUpdown_place_latitude());
+            double upDownLongitude = Double.parseDouble(user.getUpdown_place_longitude());
+            long second = 0;
+
+            if (swipeCard != null) {
+                second = TimeUtils.compare2Date(swipeCard.getTouchTime());
+
+            }
+            // 0-未上车 1-已上车  2-即将上下车 255-走道
+            if (user.getSeat_number().equals("255")) {
+
+                statusBean.setSeat_status("255");
+            } else if (LocationUtils.calcDistance(mLatitude, mLongitude, upDownLatitude, upDownLongitude) < 1
+                    && second > 4 * 60) {//如果当前经纬度和上下车经纬度小于1km且刷卡时间大于4分钟才设置为状态2
+
+                preDownCount++;
+                statusBean.setSeat_status("2");
+            } else if (swipeCard != null && swipeCard.getUpdownDirection().equals("up")) {
+                statusBean.setSeat_status("1");
+            } else {
+                notOnTheBus++;
+                statusBean.setSeat_status("0");
+            }
+
+            statusBean.setSeat_number(user.getSeat_number());
+            statusBean.setUser_name(user.getName());
+            statusBean.setUser_photo_url(user.getPhotoUrl());
+            statusBean.setUpdown_place_uid(user.getUpdown_place_uid());
+            statusBean.setUpdown_place_address(user.getUpdown_place_address());
+            statusBean.setUpdown_place_address_short(user.getUpdown_place_address_short());
+            statusBean.setUpdown_place_latitude(user.getUpdown_place_latitude());
+            statusBean.setUpdown_place_longitude(user.getUpdown_place_longitude());
+
+            seatDatas.add(statusBean);
+        }
+
+        schoolbusData.setCurrent_addrese(mAddress);
+        schoolbusData.setCurrent_latitude(mLatitude);
+        schoolbusData.setCurrent_longitude(mLongitude);
+        schoolbusData.setDownCount(preDownCount);
+        //已上车人数
+        schoolbusData.setUpCount(Integer.parseInt(ConfigManager.getInstance().getSchoolBusSeatCount())-notOnTheBus);
+
+        schoolbusData.setAllSeatDistrStatus(seatDatas);
+
+        String param = mGson.toJson(schoolbusData);
+
+//        Log.i(TAG, param);
+
+        webView.loadUrl(generateMethodStr(param));
+
+    }
+
+    private void generateSwipeCardData(SchoolbusData schoolbusData, ArrayList<SchoolbusData.SeatData> seatDatas) {
+        String seatCount = ConfigManager.getInstance().getSchoolBusSeatCount();
+        String seatRow = ConfigManager.getInstance().getSchoolBusSeatRow();
+        String seatCloumn = ConfigManager.getInstance().getSchoolBusSeatColumn();
 
         schoolbusData.setSeat_count(seatCount);
         schoolbusData.setSeat_row(seatRow);
         schoolbusData.setSeat_column(seatCloumn);
+
+        schoolbusData.setDownCount(0);
+        schoolbusData.setUpCount(0);
+        schoolbusData.setCurrent_addrese(mAddress);
+        schoolbusData.setCurrent_latitude(mLatitude);
+        schoolbusData.setCurrent_longitude(mLongitude);
 
         Log.i("TAG", seatCount + " - " + seatRow + " - " + seatCloumn);
 
@@ -318,12 +449,14 @@ public class MainActivity extends BaseActivity
 
             seatData.setSeat_number(user.getSeat_number());
 
-               SwipeCard swipeCard = RealmHelper.getSwipCardById(mSwipeCardInfoRealm, user.getCardId());
-               if (swipeCard != null && swipeCard.getUpdownDirection().equals("up")) {
-                   seatData.setSeat_status("0");
-               } else {
-                   seatData.setSeat_status("1");
-               }
+
+            SwipeCard swipeCard = RealmHelper.getSwipCardById(mSwipeCardInfoRealm, user.getCardId());
+
+            if (swipeCard != null && swipeCard.getUpdownDirection().equals("up")) {
+                seatData.setSeat_status("0");
+            } else {
+                seatData.setSeat_status("1");
+            }
 
             seatData.setUser_name(user.getName());
             seatData.setUser_photo_url(user.getPhotoUrl());
@@ -337,23 +470,16 @@ public class MainActivity extends BaseActivity
 
             schoolbusData.setAllSeatDistrStatus(seatDatas);
         }
-
-        String method = "H5PageDataIniShow";
-        String param = mGson.toJson(schoolbusData);
-        Log.i(TAG, param);
-
-        webView.loadUrl(generateMethodStr(method, param));
     }
 
     /**
      * 生成h5调用url
      *
-     * @param method
      * @param param
      * @return
      */
-    private String generateMethodStr(String method, String param) {
-        return String.format("javascript:%s(\"%s\")", method, param);
+    private String generateMethodStr(String param) {
+        return String.format("javascript:H5PageDataIniShow(\'%s\')", param);
     }
 
     @Override
@@ -685,6 +811,7 @@ public class MainActivity extends BaseActivity
         }
         // 卡号和刷卡时间
         mTouchTime = TimeUtils.getCurrentTime("yyyy-MM-dd HH:mm:ss");
+        //1 15   045
         mCardId = String.valueOf(Long.parseLong(stringBuilder.toString(), 16));
 
         mHandler.removeMessages(RESET_UI);
@@ -734,6 +861,7 @@ public class MainActivity extends BaseActivity
         lampProgressBar.setSize(mNotUploadCount + mGpsInfos.size());
 //        }
 //        LogUtils.d(this.tag, "---定位数据----" + aMapLocation.toJson(1));
+        mHandler.sendEmptyMessage(REFRESH_H5);
     }
 
     /**
@@ -824,6 +952,12 @@ public class MainActivity extends BaseActivity
 
                     acivity.sendData2H5();
                     break;
+                case REFRESH_H5:
+                    //刷新H5
+                    acivity.refreshH5Data();
+
+                    break;
+
 
             }
         }
@@ -895,5 +1029,6 @@ public class MainActivity extends BaseActivity
             return true;
         }
     }
+
 
 }

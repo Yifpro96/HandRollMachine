@@ -98,16 +98,14 @@ public class SyncUserDataRunnable implements Runnable {
         }
         //保存校车信息
 
-        SPUtils.putValue(ConfigConstant.KEY_SEAT_COUNT,response.getSeat_count());
-        SPUtils.putValue(ConfigConstant.KEY_SEAT_ROW,response.getSeat_row());
-        SPUtils.putValue(ConfigConstant.KEY_SEAT_COLUMN,response.getSeat_column());
-        SPUtils.putValue(ConfigConstant.KEY_SEAT_ALL_NUMBER,response.getSeat_all_number());
-        SPUtils.putValue(ConfigConstant.KEY_SEAT_DISTR_DIAGRAM,response.getSeat_distr_diagram());
-
+        ConfigManager.getInstance().setSchoolBusSeatCount(response.getSeat_count());
+        ConfigManager.getInstance().setSchoolBusSeatRow(response.getSeat_row());
+        ConfigManager.getInstance().setSchoolBusSeatColumn(response.getSeat_column());
+        ConfigManager.getInstance().setSchoolBusSeatAllNumber(response.getSeat_all_number());
+        ConfigManager.getInstance().setSchoolBusSeatDistrDiagram(response.getSeat_distr_diagram());
 
         Log.i("TAG 1", response.getSeat_count() + " - " + response.getSeat_row() + " - " + response.getSeat_column());
 
-        // TODO: 2018/10/17 保存学生信息
         List<User> users = CsvHelper.getUserData(filePath);
         if (users == null || users.size() == 0) {
             // 后台没有录入用户信息

@@ -250,6 +250,86 @@ public class ConfigManager {
         SPUtils.putValue(ConfigConstant.LOCATION_TIME_INTERVAL, locationInterval);
     }
 
+    //校车座位数
+    private String schoolBusSeatCount;
+
+    public String getSchoolBusSeatCount() {
+        if (StringUtils.isEmpty(schoolBusSeatCount)) {
+            schoolBusSeatCount = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_COUNT, "");
+        }
+        return schoolBusSeatCount;
+    }
+
+    public void setSchoolBusSeatCount(String seatCount) {
+        this.schoolBusSeatCount = seatCount;
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_COUNT, seatCount);
+
+    }
+
+    //校车座位行数
+    private String schoolBusSeatRow;
+
+    public String getSchoolBusSeatRow() {
+        if (StringUtils.isEmpty(schoolBusSeatRow)) {
+            schoolBusSeatRow = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_ROW, "");
+        }
+        return schoolBusSeatRow;
+    }
+
+    public void setSchoolBusSeatRow(String schoolBusSeatRow) {
+        this.schoolBusSeatRow = schoolBusSeatRow;
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_ROW, schoolBusSeatRow);
+
+    }
+
+    //校车座位列数
+    private String schoolBusSeatColumn;
+
+    public String getSchoolBusSeatColumn() {
+        if (StringUtils.isEmpty(schoolBusSeatColumn)) {
+            schoolBusSeatColumn = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_COLUMN, "");
+        }
+        return schoolBusSeatColumn;
+    }
+
+    public void setSchoolBusSeatColumn(String schoolBusSeatColumn) {
+        this.schoolBusSeatColumn = schoolBusSeatColumn;
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_COLUMN, schoolBusSeatColumn);
+
+    }
+
+    //校车所有座椅编号
+    private String schoolBusSeatAllNumber;
+
+    public String getSchoolBusSeatAllNumber() {
+        if (StringUtils.isEmpty(schoolBusSeatAllNumber)) {
+            schoolBusSeatAllNumber = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_ALL_NUMBER, "");
+        }
+        return schoolBusSeatAllNumber;
+    }
+
+    public void setSchoolBusSeatAllNumber(String schoolBusSeatAllNumber) {
+        this.schoolBusSeatAllNumber = schoolBusSeatAllNumber;
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_ALL_NUMBER, schoolBusSeatAllNumber);
+
+    }
+
+    //校车座位分布图
+    private String schoolBusSeatDistrDiagram;
+
+    public String getSchoolBusSeatDistrDiagram() {
+        if (StringUtils.isEmpty(schoolBusSeatDistrDiagram)) {
+            schoolBusSeatDistrDiagram = (String) SPUtils.getValue(ConfigConstant.KEY_SEAT_DISTR_DIAGRAM, "");
+        }
+        return schoolBusSeatDistrDiagram;
+    }
+
+    public void setSchoolBusSeatDistrDiagram(String schoolBusSeatDistrDiagram) {
+        this.schoolBusSeatDistrDiagram = schoolBusSeatDistrDiagram;
+        SPUtils.putValue(ConfigConstant.KEY_SEAT_DISTR_DIAGRAM, schoolBusSeatDistrDiagram);
+
+    }
+
     // 静态内部类的单例模式
     private ConfigManager() {
     }

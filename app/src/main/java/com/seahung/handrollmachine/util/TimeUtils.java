@@ -1,7 +1,10 @@
 package com.seahung.handrollmachine.util;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
+import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,6 +14,8 @@ import java.util.Date;
  */
 @SuppressLint("SimpleDateFormat")
 public class TimeUtils {
+
+    private static String TAG = "*********-" + TimeUtils.class.getSimpleName() + "-************* ";
 
     /**
      * 获取当前时间
@@ -27,6 +32,7 @@ public class TimeUtils {
 
     /**
      * 格式化毫秒数为19位的时间日期
+     *
      * @param millis
      * @return
      */
@@ -80,5 +86,29 @@ public class TimeUtils {
 
         String strtime = hourStr + ":" + minuteStr + ":" + secondStr;
         return strtime;
+    }
+
+    /**
+     * 当前时间与刷卡时间比较
+     *
+     * @param date 刷卡时间
+     * @return 秒
+     */
+    public static long compare2Date(String date) {
+        if (!TextUtils.isEmpty(date)) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                Date parseDate = format.parse(date);
+                long time = parseDate.getTime() / 1000;
+                long timeMillis = System.currentTimeMillis() / 1000;
+
+                return timeMillis - time;
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return 60;
     }
 }

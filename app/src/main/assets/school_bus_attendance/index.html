@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>车</title>
+    <link rel="stylesheet" href="./css/index.css?v=9">
+    <script src="./js/h5AutoFontSize384.js"></script>
+    <script src="./js/jquery-1.10.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="left-box leftBox">
+            <div class="seats-box l-box on ">
+                <div class="label-box leftLabelBox">
+                    <div class="on" data-type="no">
+                        <img src="./images/seat-sn.png" alt="序号" class="s">
+                        <img src="./images/polygon.png" alt="" class="p">
+                    </div>
+                    <div data-type="name">
+                        <img src="./images/seat-name.png" alt="姓名" class="s">
+                        <img src="./images/polygon.png" alt="" class="p">
+                    </div>
+                    <div data-type="ico">
+                        <img src="./images/seat-ico.png" alt="头像" class="s">
+                        <img src="./images/polygon.png" alt="" class="p">
+                    </div>
+                </div>
+                <div class="seats-body no">
+                    <ul class="leftSeatsBody">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right-box rightBox">
+            <div class="car-box">
+                <div class="label-box">
+                    <img src="./images/car.png" alt="">
+                </div>
+                <div class="car-info">
+                    <div class="label">当前位置</div>
+                    <div class="ny">--</div>
+                </div>
+            </div>
+            <div class="seats-total card-box">
+                <div class="label">座位总数</div>
+
+                <div class="card-info">
+                    <div class="ico">
+                        <img src="./images/seat/white.png" alt="">
+                    </div>
+                    <div class="data"> <span class="txt">--</span>
+                        <span class="la">人</span></div>
+                </div>
+            </div>
+            <div class="student_all card-box">
+
+                <div class="label">即将下车人数</div>
+
+                <div class="card-info">
+                    <div class="ico">
+                        <img src="./images/student_cs.png" alt="">
+                    </div>
+                    <div class="data">
+                        <span class="txt">--</span>
+                        <span class="la">人</span>
+                    </div>
+                </div>
+            </div>
+            <div class="student_has card-box">
+                <div class="label">已上车人数</div>
+                <div class="card-info">
+                    <div class="ico">
+                        <img src="./images/student_has.png" alt="">
+                    </div>
+                    <div class="data"> <span class="txt">--</span>
+                        <span class="la">人</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 测试数据，上线请删除 s-->
+    <script src="./js/tmp_init_data.js"></script>
+    <!-- 测试数据，上线请删除 e-->
+    <script>
+        $(function() {
+            var $container = $('#container');
+            var $leftSeatsBody = $container.find('.leftSeatsBody');
+            var $rightBox = $container.find('.rightBox');
+            var seatRow = 10;
+            var seatColumn = 3;
+            $container.on('click', '.leftLabelBox>div', function() {
+                var type = $(this).data('type');
+                $(this)
+                    .addClass('on')
+                    .siblings()
+                    .removeClass('on')
+                    .parent()
+                    .siblings('.seats-body')
+                    .removeClass('no')
+                    .removeClass('ico')
+                    .removeClass('name')
+                    .addClass(type)
+            });
+            // 初始
+            function H5PageDataIniShow(jsonData) {
+                alert("来自客户端的信息：");
+                jsonData = typeof(jsonData) === 'string' ? JSON.parse(jsonData) : jsonData;
+                seatRow = jsonData.seat_row;
+                seatColumn = jsonData.seat_column;
+                   $rightBox.find('.car-info>.ny').text(jsonData.current_addrese);
+                $rightBox.find('.seats-total .data .txt').text(jsonData.seat_count);
+                $rightBox.find('.student_has .data .txt').text(jsonData.on_car_stu_count);
+                createData(jsonData.all_seat_distr_status);
+            }
+            //间隔刷新
+            function H5PageDataIntervalShow(jsonData) {
+                // 没有即将下车的总人数的参数
+                $rightBox.find('.car-info>.ny').text(jsonData.current_addrese);
+                jsonData = typeof(jsonData) === 'string' ? JSON.parse(jsonData) : jsonData;
+                createData(jsonData.all_seat_id_status);
+            }
+
+
+            function createData(data) {
+                var arr = data;
+                $leftSeatsBody.html('');
+                arr.map(function(item) {
+                    var str = '';
+                    if (item.seat_status == 2) {
+                        str += '<li class="upcoming">';
+                    } else {
+                        str += '<li>';
+                    }
+                    if (item.seat_number != 255) {
+                        if (item.seat_status == 1) {
+                            str += '<img src="./images/seat/green.png" alt="" class="no">';
+                        } else if (item.seat_status == 2) {
+                            str += '<img src="./images/seat/red.png" alt="" class="no">';
+                        } else {
+                            str += '<img src="./images/seat/default.png" alt="" class="no">';
+                        }
+                        str += '<span class="no">' + item.seat_number + '</span>';
+                        str += '<span class="name">' + item.user_name + '</span>';
+                        if (item.user_photo_url) {
+                            str += '<img src="' + item.user_photo_url + '" alt="" class="ico" onerror= "onerror=null;src=\'./images/student-ico-de.png\'">';
+                        } else {
+                            str += '<img src="./images/student-ico-null.png" class="ico">';
+                        }
+                    }
+                    str += '</li>';
+                    $leftSeatsBody.append(str);
+                });
+                $leftSeatsBody.find('li').width($leftSeatsBody.width() / seatColumn);
+                $leftSeatsBody.find('li').height($leftSeatsBody.height() / seatRow);
+            }
+
+
+            // 测试数据，上线请删除
+            H5PageDataIniShow(initData)
+        });
+    </script>
+</body>
+
+</html>

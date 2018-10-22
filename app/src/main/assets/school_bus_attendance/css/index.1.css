@@ -1,0 +1,677 @@
+* {
+    margin: 0;
+    border: none;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: '微软雅黑';
+    overflow: hidden;
+}
+
+body {
+    position: relative;
+}
+
+.container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.left-box {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    background: #e8eff0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.left-box .l-box {
+    /* position: relative; */
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-flow: column;
+    flex-flow: column;
+    overflow: hidden;
+}
+
+.left-box .l-box .label-box {
+    width: 100%;
+    height: 2.375rem;
+    background: #35b4df;
+    color: #fff;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.left-box .seats-box {
+    display: none;
+}
+
+.left-box .seats-box.on {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.left-box .seats-box .label-box>div {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+}
+
+.left-box .seats-box .label-box>div .s {
+    width: 1.5625rem;
+    height: auto;
+    max-width: 40%;
+    max-height: 80%;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+.left-box .seats-box .label-box>div:nth-child(1) .s {
+    width: 1.25rem;
+}
+
+.left-box .seats-box .label-box>div .p {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: .625rem;
+    height: .25rem;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    display: none;
+}
+
+.left-box .seats-box .label-box>div.on .p {
+    display: block;
+}
+
+.left-box .seats-box .seats-body {
+    /* width: 100%; */
+    height: auto;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* padding: .4375rem 0; */
+    overflow: hidden;
+    position: relative;
+}
+
+.left-box .seats-box .seats-body ul {
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    /* top: .4375rem;
+    bottom: .4375rem; */
+    padding: .4375rem 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    overflow: hidden;
+}
+
+.left-box .seats-box .seats-body ul li {
+    float: left;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.left-box .seats-box .seats-body ul li img {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    width: 2.375rem;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+.left-box .seats-box .seats-body ul li img.ico {
+    width: auto;
+}
+
+.left-box .seats-box .seats-body ul li span {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    font-size: 1rem;
+    color: #fff;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.left-box .seats-box .seats-body ul li span.name {
+    font-size: .5rem;
+    width: 2rem;
+    max-width: 100%;
+}
+
+.left-box .seats-box .seats-body.no ul li .ico {
+    display: none;
+}
+
+.left-box .seats-box .seats-body.no ul li .name {
+    display: none;
+}
+
+.left-box .seats-box .seats-body.name ul li .ico {
+    display: none;
+}
+
+.left-box .seats-box .seats-body.name ul li span.no {
+    display: none;
+}
+
+.left-box .seats-box .seats-body.ico ul li .no {
+    display: none;
+}
+
+.left-box .seats-box .seats-body.ico ul li .name {
+    display: none;
+}
+
+.left-box .seats-box .seats-body ul li.upcoming {
+    -moz-animation: upcoming 1s infinite;
+    -o-animation: upcoming 1s infinite;
+    animation: upcoming 1s infinite;
+    -webkit-animation: upcoming 1s infinite;
+}
+
+@-webkit-keyframes upcoming {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    90% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@-moz-keyframes upcoming {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    90% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@-o-keyframes upcoming {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    90% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes upcoming {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    90% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.left-box .car-box .label-box {
+    font-size: .9375rem;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 .75rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.left-box .car-box {
+    display: none;
+}
+
+.left-box .car-box.on {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.left-box .car-box .seats-body {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.left-box .car-box .seats-body .sl-box {
+    width: 5.75rem;
+    background: #e8eff0;
+    position: relative;
+}
+
+.left-box .car-box .seats-body .sl-box ul {
+    display: block;
+    list-style: none;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.left-box .car-box .seats-body .sl-box ul li {
+    text-align: center;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: .875rem;
+    color: #999;
+    padding: .5rem .0625rem;
+    position: relative;
+}
+
+.left-box .car-box .seats-body .sl-box ul li .poly {
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: 0;
+    border-top: .375rem solid transparent;
+    border-bottom: .375rem solid transparent;
+    border-right: .375rem solid #f7f7f7;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    display: none;
+}
+
+.left-box .car-box .seats-body .sl-box ul li.on .poly {
+    display: block;
+}
+
+.left-box .car-box .seats-body .sr-box {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    /* height: 100%; */
+    background: #f7f7f7;
+    position: relative;
+}
+
+.left-box .car-box .seats-body .sr-box ul {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    padding: .5rem 0;
+    list-style: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.left-box .car-box .seats-body .sr-box ul li {
+    float: left;
+    width: 50%;
+    margin-bottom: .9375rem;
+}
+
+.left-box .car-box .seats-body .sr-box ul li img {
+    display: block;
+    max-width: 70%;
+    width: 2.625rem;
+    height: auto;
+    border: 1px solid #e2e2e2;
+    margin: 0 auto .5rem auto;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.left-box .car-box .seats-body .sr-box ul li span {
+    display: block;
+    white-space: nowrap;
+    font-size: .75rem;
+    color: #999;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+}
+
+.right-box {
+    width: 7.25rem;
+    background: #fff;
+    height: 100%;
+    overflow: hidden;
+    margin: 0 .1875rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-flow: column;
+    flex-flow: column;
+}
+
+.right-box .car-box {
+    height: 9.25rem;
+    width: 100%;
+    overflow: hidden;
+    background: #fa8564;
+}
+
+.right-box .car-box .label-box {
+    height: 2.375rem;
+    background: #35b4df;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.right-box .car-box .label-box img {
+    /* width: 1.4375rem; */
+    height: auto;
+    max-height: 80%;
+    max-width: 60%;
+    display: block;
+    margin: 0 auto;
+}
+
+.right-box .car-box .car-info {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.right-box .car-box .car-info .c-ico {
+    width: 2rem;
+    padding-top: 1.375rem;
+}
+
+.right-box .car-box .car-info .c-ico .ico {
+    width: .75rem;
+    height: .75rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: .125rem solid #fff;
+}
+
+.right-box .car-box .car-info .c-ico .ico.d {
+    border-color: #dc3224;
+}
+
+.right-box .car-box .car-info .c-ico .line {
+    width: 0;
+    border-left: 1px dashed #fff;
+    height: 2.4rem;
+    margin: 0 auto;
+}
+
+.right-box .car-box .car-info .c-info {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+}
+
+.right-box .car-box .car-info .c-info .label {
+    color: #ffd5d1;
+    font-size: .75rem;
+    height: 1rem;
+    line-height: 1rem;
+}
+
+.right-box .car-box .car-info .c-info .txt {
+    font-size: 1rem;
+    color: #fff;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 1.25rem;
+    line-height: 1.25rem;
+}
+
+.right-box .car-box .car-info .c-info .s {
+    margin-top: 10px;
+}
+
+.right-box .car-box .car-info .c-info .d {
+    margin-top: 1.25rem;
+}
+
+.right-box .card-box {
+    margin-top: .125rem;
+    height: 3.375rem;
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    background: #35b4df;
+    overflow: hidden;
+}
+
+.right-box .card-box .ico {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.right-box .card-box .ico img {
+    /* width: 2.125rem; */
+    height: auto;
+    max-height: 60%;
+    max-width: 60%;
+    display: block;
+    margin: 0 auto;
+}
+
+.right-box .card-box .card-info {
+    width: 4rem;
+    height: 100%;
+    color: #fff;
+    overflow: hidden;
+    padding: .25rem 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.right-box .card-box .card-info .label {
+    font-size: .5625rem;
+    padding: .125rem 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 1.125rem;
+    line-height: 1.125rem
+}
+
+.right-box .card-box .card-info .data {
+    font-size: .625rem;
+    height: 1.625rem;
+    line-height: 1.625rem
+}
+
+.right-box .card-box .card-info .data span {
+    font-size: 1.25rem;
+    margin-right: .625rem;
+}
+
+.right-box .btn-box {
+    overflow: hidden;
+}
+
+.right-box .btn-box .btn {
+    width: 100%;
+    margin-top: .375rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    border-radius: 2rem;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    -o-border-radius: 2rem;
+    background: #ababab;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.right-box .btn-box .btn.btn-car {
+    background: #f0a729;
+}
+
+.right-box .btn-box .btn.btn-seats.only {
+    background: #35b4df;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
